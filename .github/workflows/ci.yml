@@ -13,7 +13,7 @@ jobs:
     name: Tests PHP ${{ matrix.php }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -21,7 +21,7 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: cache-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
@@ -46,7 +46,7 @@ jobs:
     name: Formatting Check
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -54,7 +54,7 @@ jobs:
           echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: cache-php-8.0-composer-${{ hashFiles('composer.json') }}
