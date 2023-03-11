@@ -5,7 +5,7 @@
 .gitignore         export-ignore
 CHANGELOG.md       export-ignore
 phpstan.neon.dist  export-ignore
-phpunit.xml.dist   export-ignore
+phpunit.xml        export-ignore
 README.md          export-ignore
 LICENSE.md         export-ignore
 rector.php         export-ignore
