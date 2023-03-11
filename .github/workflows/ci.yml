@@ -1,0 +1,76 @@
+name: CI
+
+on: ['push', 'pull_request']
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: ["8.0", 8.1, 8.2]
+
+    name: Tests PHP ${{ matrix.php }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: cache-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer update --no-interaction --prefer-dist
+
+      - name: Unit Tests
+        run: ./vendor/bin/pest
+
+  formatting:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    name: Formatting Check
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: cache-php-8.0-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          extensions: mbstring
+          coverage: pcov
+
+      - name: Install Composer dependencies
+        run: composer update --no-interaction --prefer-dist
+
+      - name: PhpStan Checks
+        run: ./vendor/bin/phpstan analyse --ansi
+
+      - name: Rector Checks
+        run: ./vendor/bin/rector --dry-run
