@@ -4,6 +4,9 @@ on:
   release:
     types: [released]
 
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -12,18 +15,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: 1.x
 
       - name: Update Changelog
         uses: stefanzweifel/changelog-updater-action@v1
         with:
-          latest-version: ${{ github.event.release.tag_name }}
+          latest-version: ${{ github.event.release.name }}
           release-notes: ${{ github.event.release.body }}
-          compare-url-target-revision: ${{ github.event.release.target_commitish }}
 
       - name: Commit updated CHANGELOG
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: ${{ github.event.release.target_commitish }}
-          commit_message: Update CHANGELOG.md
+          branch: 1.x
+          commit_message: Update CHANGELOG
           file_pattern: CHANGELOG.md
