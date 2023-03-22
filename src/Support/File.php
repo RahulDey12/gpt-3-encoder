@@ -13,7 +13,7 @@ class File
     {
         try {
             $file = file_get_contents($path);
-        } catch (Exception) {
+        } catch (Exception $err) {
             $file = false;
         }
 
