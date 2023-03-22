@@ -7,7 +7,7 @@ GPT-2 and GPT-3 use byte pair encoding to turn text into a series of integers to
 
 ## Get Started
 
-> Requires [PHP 8.0+](https://php.net/releases/)
+> Requires [PHP 7.4+](https://php.net/releases/)
 
 Install GPT-3-Encoder via the [Composer](https://getcomposer.org/) package manager
 
