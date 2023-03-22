@@ -1,5 +1,10 @@
 # GPT-3-Encoder for PHP
 
+<a href="https://styleci.io/repos/610924109"><img src="https://github.styleci.io/repos/610924109/shield" alt="StyleCI Status"></a>
+<a href="https://github.com/rahuldey12/gpt-3-encoder/actions"><img src="https://github.com/RahulDey12/gpt-3-encoder/workflows/CI/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/rahul900day/gpt-3-encoder"><img src="https://poser.pugx.org/rahul900day/gpt-3-encoder/version" alt="Version"></a>
+[![PHP Version Require](http://poser.pugx.org/rahul900day/gpt-3-encoder/require/php)](https://packagist.org/packages/rahul900day/gpt-3-encoder)
+
 PHP BPE Encoder Decoder for GPT-2/GPT-3 
 
 ## About
